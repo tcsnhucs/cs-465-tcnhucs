@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core'; // Added ChangeDetectorRef
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TripCardComponent } from '../trip-card/trip-card';
 import { TripData } from '../services/trip-data';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '../services/authentication';
 
 @Component({
   selector: 'app-trip-listing',
@@ -18,13 +19,18 @@ export class TripListing implements OnInit {
   constructor(
     private tripDataService: TripData,
     private router: Router,
-    private cd: ChangeDetectorRef 
+    private cd: ChangeDetectorRef,
+    private authenticationService: AuthenticationService
   ) {
     console.log('trip-listing constructor');
   }
 
   public addTrip(): void {
     this.router.navigate(['add-trip']);
+  }
+
+  public isLoggedIn(): boolean {
+    return this.authenticationService.isLoggedIn();
   }
 
   private getStuff(): void {
